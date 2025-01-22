@@ -16,7 +16,7 @@ extension TestingListExtention<T extends Testable> on List<T> {
 
       print(
         'Test case $i '
-        '${isCorrect ? '✅' : '❌\r\nCorrect result $result != ${testCase.result}\r\n'}',
+        '${isCorrect ? '✅' : '❌\r\nYour result $result != ${testCase.result}\r\n'}',
       );
     }
   }

@@ -49,7 +49,7 @@ class Solution {
   int countFairPairs(List<int> nums, int lower, int upper) {
     nums.sort();
 
-    final result = _countPairs(nums, upper ) - _countPairs(nums, lower-1);
+    final result = _countPairs(nums, upper) - _countPairs(nums, lower - 1);
 
     return result;
   }

@@ -49,7 +49,6 @@ class Solution {
       );
 }
 
-
 class CurrentTest extends Testable {
   CurrentTest({
     required this.code,
