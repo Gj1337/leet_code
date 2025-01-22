@@ -26,7 +26,7 @@
 // 1 <= arr.length <= 105
 // 0 <= arr[i] <= 109
 
-import 'tastable.dart';
+import 'testable.dart';
 
 class Solution {
   int findLengthOfShortestSubarray(List<int> arr) {

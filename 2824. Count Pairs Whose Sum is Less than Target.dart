@@ -26,7 +26,7 @@
 // - (4, 5) since 4 < 5 and nums[4] + nums[5] = -8 < target
 // - (4, 6) since 4 < 6 and nums[4] + nums[6] = -4 < target
 
-import 'tastable.dart';
+import 'testable.dart';
 
 class Solution {
   int countPairs(List<int> nums, int target) {

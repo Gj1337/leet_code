@@ -43,7 +43,7 @@
 // 1 <= nums[i] <= 105
 // 1 <= k <= n
 
-import 'tastable.dart';
+import 'testable.dart';
 
 class Solution {
   List<int> resultsArray(List<int> nums, int k) {

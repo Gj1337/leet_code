@@ -32,7 +32,7 @@
 // 1 <= code[i] <= 100
 // -(n - 1) <= k <= n - 1
 
-import 'tastable.dart';
+import 'testable.dart';
 
 class Solution {
   List<int> decrypt(List<int> code, int k) => List.generate(
