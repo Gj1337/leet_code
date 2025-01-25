@@ -52,16 +52,15 @@ class Solution {
   }
 }
 
-class CurrentTestCase implements Testable {
-  CurrentTestCase({
+class SolutionTest extends Testable<int> with ConsoleTestOutput {
+  SolutionTest({
     required this.nums,
     required this.target,
-    required this.result,
+    required super.result,
   });
 
   final List<int> nums;
   final int target;
-  final int result;
 
   @override
   computeResult() => Solution().countPairs(nums, target);
@@ -69,7 +68,7 @@ class CurrentTestCase implements Testable {
 
 void main(List<String> args) {
   [
-    CurrentTestCase(nums: [-1, 1, 2, 3, 1], target: 2, result: 3),
-    CurrentTestCase(nums: [-6, 2, 5, -2, -7, -1, 3], target: -2, result: 10),
+    SolutionTest(nums: [-1, 1, 2, 3, 1], target: 2, result: 3),
+    SolutionTest(nums: [-6, 2, 5, -2, -7, -1, 3], target: -2, result: 10),
   ].test();
 }

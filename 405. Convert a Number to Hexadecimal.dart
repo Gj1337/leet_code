@@ -69,8 +69,8 @@ class Solution {
   }
 }
 
-final class CurrentSolution extends Testable<String> {
-  CurrentSolution(
+final class SolutionTest extends Testable<String> with ConsoleTestOutput {
+  SolutionTest(
     this.num, {
     required super.result,
   });
@@ -83,9 +83,9 @@ final class CurrentSolution extends Testable<String> {
 
 void main(List<String> args) {
   [
-    CurrentSolution(0x0, result: 0x0.toRadixString(16)),
-    CurrentSolution(0x25, result: 0x25.toRadixString(16)),
-    CurrentSolution(0x99, result: 0x99.toRadixString(16)),
-    CurrentSolution(-0x1, result: 'ffffffff'),
+    SolutionTest(0x0, result: 0x0.toRadixString(16)),
+    SolutionTest(0x25, result: 0x25.toRadixString(16)),
+    SolutionTest(0x99, result: 0x99.toRadixString(16)),
+    SolutionTest(-0x1, result: 'ffffffff'),
   ].test();
 }

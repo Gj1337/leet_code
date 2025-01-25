@@ -43,8 +43,8 @@ class Solution {
   }
 }
 
-class CurrentSolution extends Testable {
-  CurrentSolution({
+class SolutionTest extends Testable<List<String>> with ConsoleTestOutput {
+  SolutionTest({
     required this.n,
     required super.result,
   });
@@ -57,12 +57,12 @@ class CurrentSolution extends Testable {
 
 void main(List<String> args) {
   [
-    CurrentSolution(n: 1, result: ['1']),
-    CurrentSolution(n: 2, result: ['1', '2']),
-    CurrentSolution(n: 3, result: ['1', '2', 'Fizz']),
-    CurrentSolution(n: 5, result: ['1', '2', 'Fizz', '4', 'Buzz']),
-    CurrentSolution(n: 6, result: ['1', '2', 'Fizz', '4', 'Buzz', 'Fizz']),
-    CurrentSolution(n: 10, result: [
+    SolutionTest(n: 1, result: ['1']),
+    SolutionTest(n: 2, result: ['1', '2']),
+    SolutionTest(n: 3, result: ['1', '2', 'Fizz']),
+    SolutionTest(n: 5, result: ['1', '2', 'Fizz', '4', 'Buzz']),
+    SolutionTest(n: 6, result: ['1', '2', 'Fizz', '4', 'Buzz', 'Fizz']),
+    SolutionTest(n: 10, result: [
       '1',
       '2',
       'Fizz',
@@ -74,7 +74,7 @@ void main(List<String> args) {
       'Fizz',
       'Buzz'
     ]),
-    CurrentSolution(n: 15, result: [
+    SolutionTest(n: 15, result: [
       '1',
       '2',
       'Fizz',
@@ -91,8 +91,8 @@ void main(List<String> args) {
       '14',
       'FizzBuzz'
     ]),
-    CurrentSolution(n: 0, result: []), // Edge case
-    CurrentSolution(n: 16, result: [
+    SolutionTest(n: 0, result: []), // Edge case
+    SolutionTest(n: 16, result: [
       '1',
       '2',
       'Fizz',

@@ -4,22 +4,9 @@ abstract class Testable<T> {
   final T result;
 
   T computeResult();
-}
 
-extension TestingListExtention<T extends Testable> on List<T> {
-  void test() {
-    for (var i = 0; i < this.length; i++) {
-      final testCase = this[i];
-      final result = testCase.computeResult();
-
-      final isCorrect = _areEqual(result, testCase.result);
-
-      print(
-        'Test case $i '
-        '${isCorrect ? '✅' : '❌\r\nYour result $result != ${testCase.result}\r\n'}',
-      );
-    }
-  }
+  /// If test is passed result is true otherwise false;
+  bool test() => _areEqual(computeResult(), result);
 
   bool _areEqual(dynamic a, dynamic b) => switch ((a, b)) {
         (List a, List b) => _areListEqual(a, b),
@@ -40,9 +27,8 @@ extension TestingListExtention<T extends Testable> on List<T> {
     return true;
   }
 
-  bool _areSetsEqual(Set a, Set b) {
-    return a.length == b.length && a.containsAll(b) && b.containsAll(a);
-  }
+  bool _areSetsEqual(Set a, Set b) =>
+      a.length == b.length && a.containsAll(b) && b.containsAll(a);
 
   bool _areMapsEqual(Map a, Map b) {
     if (a.length != b.length) return false;
@@ -52,6 +38,36 @@ extension TestingListExtention<T extends Testable> on List<T> {
         return false;
       }
     }
+
     return true;
   }
+}
+
+mixin ConsoleTestOutput<T> on Testable<T> {
+  @override
+  bool test() {
+    final computedResult = computeResult();
+    final isPassed = _areEqual(computeResult(), result);
+
+    print(
+      isPassed
+          ? 'Passed ✅\r\n'
+          : '❌ Your result $computedResult != $result\r\n',
+    );
+
+    return isPassed;
+  }
+}
+
+extension TestingListExtention<T extends Testable> on List<T> {
+  List<bool> test() => List.generate(
+        this.length,
+        (i) {
+          if (this[i] is ConsoleTestOutput) {
+            print('Test case $i');
+          }
+
+          return this[i].test();
+        },
+      );
 }

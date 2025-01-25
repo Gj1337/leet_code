@@ -49,8 +49,8 @@ class Solution {
       );
 }
 
-class CurrentTest extends Testable {
-  CurrentTest({
+class SolutionTest extends Testable<List<int>> with ConsoleTestOutput {
+  SolutionTest({
     required this.code,
     required this.k,
     required super.result,
@@ -65,10 +65,10 @@ class CurrentTest extends Testable {
 
 void main(List<String> args) {
   [
-    CurrentTest(code: [5, 7, 1, 4], k: 3, result: [12, 10, 16, 13]),
-    CurrentTest(code: [1, 2, 3, 4], k: 0, result: [0, 0, 0, 0]),
-    CurrentTest(code: [2, 4, 9, 3], k: -2, result: [12, 5, 6, 13]),
-    CurrentTest(
+    SolutionTest(code: [5, 7, 1, 4], k: 3, result: [12, 10, 16, 13]),
+    SolutionTest(code: [1, 2, 3, 4], k: 0, result: [0, 0, 0, 0]),
+    SolutionTest(code: [2, 4, 9, 3], k: -2, result: [12, 5, 6, 13]),
+    SolutionTest(
         code: [10, 5, 7, 7, 3, 2, 10, 3, 6, 9, 1, 6],
         k: -4,
         result: [22, 26, 22, 28, 29, 22, 19, 22, 18, 21, 28, 19])

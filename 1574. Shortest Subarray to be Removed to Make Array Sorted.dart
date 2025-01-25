@@ -55,8 +55,11 @@ class Solution {
 
 int min(int a, int b) => a < b ? a : b;
 
-class CurrentTestCase extends Testable {
-  CurrentTestCase({required this.arr, super.result});
+class SolutionTest extends Testable<int> with ConsoleTestOutput {
+  SolutionTest({
+    required this.arr,
+    required super.result,
+  });
 
   final List<int> arr;
 
@@ -66,10 +69,10 @@ class CurrentTestCase extends Testable {
 
 void main(List<String> args) {
   [
-    CurrentTestCase(arr: [], result: 0),
-    CurrentTestCase(arr: [1, 2, 3, 10, 4, 2, 3, 5], result: 3),
-    CurrentTestCase(arr: [5, 4, 3, 2, 1], result: 4),
-    CurrentTestCase(arr: [1, 2, 3], result: 0),
-    CurrentTestCase(arr: [1, 2, 3, 10, 0, 7, 8, 9], result: 2)
+    SolutionTest(arr: [], result: 0),
+    SolutionTest(arr: [1, 2, 3, 10, 4, 2, 3, 5], result: 3),
+    SolutionTest(arr: [5, 4, 3, 2, 1], result: 4),
+    SolutionTest(arr: [1, 2, 3], result: 0),
+    SolutionTest(arr: [1, 2, 3, 10, 0, 7, 8, 9], result: 2)
   ].test();
 }
