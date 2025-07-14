@@ -1,7 +1,8 @@
 abstract class Testable<T> {
-  Testable({required this.result});
+  Testable({this.name, required this.result});
 
   final T result;
+  String? name;
 
   T computeResult();
 
@@ -47,7 +48,9 @@ mixin ConsoleTestOutput<T> on Testable<T> {
   @override
   bool test() {
     final computedResult = computeResult();
-    final isPassed = _areEqual(computeResult(), result);
+    final isPassed = _areEqual(computedResult, result);
+
+    print(name ?? 'Test case');
 
     print(
       isPassed
@@ -64,7 +67,7 @@ extension TestingListExtention<T extends Testable> on List<T> {
         this.length,
         (i) {
           if (this[i] is ConsoleTestOutput) {
-            print('Test case $i');
+            this[i].name = this[i].name ?? 'Test case $i';
           }
 
           return this[i].test();
