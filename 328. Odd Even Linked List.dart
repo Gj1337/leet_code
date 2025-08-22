@@ -20,37 +20,8 @@
 //     -106 <= Node.val <= 106
 
 // Definition for singly-linked list.
+import 'list_node.dart';
 import 'testable.dart';
-
-class ListNode {
-  int val;
-  ListNode? next;
-  ListNode([this.val = 0, this.next]);
-}
-
-extension ListNodeExtension on ListNode? {
-  List<int> toList() {
-    final result = <int>[];
-    ListNode? current = this;
-    while (current != null) {
-      result.add(current.val);
-      current = current.next;
-    }
-    return result;
-  }
-
-  static ListNode? fromList(List<int> list) {
-    if (list.isEmpty) return null;
-
-    final head = ListNode(list.first);
-    ListNode? current = head;
-    for (int i = 1; i < list.length; i++) {
-      current?.next = ListNode(list[i]);
-      current = current?.next;
-    }
-    return head;
-  }
-}
 
 class Solution {
   ListNode? oddEvenList(ListNode? head) {
@@ -81,7 +52,7 @@ class SolutionTest extends Testable<List<int>> with ConsoleTestOutput {
 
   @override
   List<int> computeResult() =>
-      Solution().oddEvenList(ListNodeExtension.fromList(linkedList)).toList();
+      Solution().oddEvenList(ListNode.fromList(linkedList))?.toList() ?? [];
 }
 
 void main(List<String> args) {

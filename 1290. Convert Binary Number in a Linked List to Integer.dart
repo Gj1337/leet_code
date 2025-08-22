@@ -18,31 +18,8 @@
 // Number of nodes will not exceed 30.
 // Each node's value is either 0 or 1.
 
+import 'list_node.dart';
 import 'testable.dart';
-
-class ListNode {
-  int val;
-  ListNode? next;
-  ListNode([this.val = 0, this.next]);
-
-  @override
-  String toString() {
-    final string = StringBuffer('ListNode[');
-    ListNode? pointer = this;
-
-    while (pointer != null) {
-      string.write(pointer.val);
-      if (pointer.next != null) {
-        string.write(',');
-      }
-
-      pointer = pointer.next;
-    }
-    string.write(']');
-
-    return string.toString();
-  }
-}
 
 class Solution {
   int getDecimalValue(ListNode? head) {
