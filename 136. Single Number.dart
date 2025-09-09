@@ -1,0 +1,44 @@
+// Given a non-empty array of integers nums,
+// every element appears twice except for one. Find that single one.
+// You must implement a solution with a linear runtime complexit
+// and use only constant extra space.
+
+// Example 1:
+// Input: nums = [2,2,1]
+// Output: 1
+// Example 2:
+// Input: nums = [4,1,2,1,2]
+// Output: 4
+// Example 3:
+// Input: nums = [1]
+// Output: 1
+
+// Constraints:
+//     1 <= nums.length <= 3 * 104
+//     -3 * 104 <= nums[i] <= 3 * 104
+//     Each element in the array appears twice
+//     except for one element which appears only once.
+
+import 'testable.dart';
+
+class Solution {
+  int singleNumber(List<int> nums) =>
+      nums.reduce((current, next) => current ^ next);
+}
+
+class SolutionTest extends Testable<int> with ConsoleTestOutput {
+  final List<int> nums;
+
+  SolutionTest({required this.nums, required super.result});
+
+  @override
+  int computeResult() => Solution().singleNumber(nums);
+}
+
+void main(List<String> args) {
+  [
+    SolutionTest(nums: [2, 2, 1], result: 1),
+    SolutionTest(nums: [4, 1, 2, 1, 2], result: 4),
+    SolutionTest(nums: [1], result: 1),
+  ].test();
+}
