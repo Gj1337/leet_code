@@ -1,13 +1,44 @@
+final class TestResult<T> {
+  final bool passed;
+  final T computedResult;
+  final T expectedResult;
+  final Duration timeTaken;
+
+  TestResult({
+    required this.passed,
+    required this.computedResult,
+    required this.expectedResult,
+    required this.timeTaken,
+  });
+}
+
 abstract class Testable<T> {
-  Testable({this.name, required this.result});
+  Testable({
+    this.name,
+    required this.result,
+  });
 
   final T result;
   String? name;
 
   T computeResult();
 
-  /// If test is passed result is true otherwise false;
-  bool test() => _areEqual(computeResult(), result);
+  bool validateResult(T computedResult, T expectedResult) =>
+      _areEqual(computedResult, expectedResult);
+
+  TestResult<T> test() {
+    final stopwatch = Stopwatch()..start();
+    final computedResult = computeResult();
+    stopwatch.stop();
+
+    final passed = validateResult(computedResult, result);
+
+    return TestResult<T>(
+        passed: passed,
+        computedResult: computedResult,
+        expectedResult: result,
+        timeTaken: stopwatch.elapsed);
+  }
 
   bool _areEqual(dynamic a, dynamic b) => switch ((a, b)) {
         (List a, List b) => _areListEqual(a, b),
@@ -18,13 +49,9 @@ abstract class Testable<T> {
 
   bool _areListEqual(List a, List b) {
     if (a.length != b.length) return false;
-
     for (var i = 0; i < a.length; i++) {
-      if (!_areEqual(a[i], b[i])) {
-        return false;
-      }
+      if (!_areEqual(a[i], b[i])) return false;
     }
-
     return true;
   }
 
@@ -35,9 +62,7 @@ abstract class Testable<T> {
     if (a.length != b.length) return false;
 
     for (final key in a.keys) {
-      if (!b.containsKey(key) || !_areEqual(a[key], b[key])) {
-        return false;
-      }
+      if (!b.containsKey(key) || !_areEqual(a[key], b[key])) return false;
     }
 
     return true;
@@ -46,31 +71,29 @@ abstract class Testable<T> {
 
 mixin ConsoleTestOutput<T> on Testable<T> {
   @override
-  bool test() {
-    final computedResult = computeResult();
-    final isPassed = _areEqual(computedResult, result);
+  TestResult<T> test() {
+    final result = super.test();
 
-    print(name ?? 'Test case');
+    final TestResult(:passed, :computedResult, :expectedResult, :timeTaken) =
+        result;
 
-    print(
-      isPassed
-          ? 'Passed ✅\r\n'
-          : '❌ Your result $computedResult != $result\r\n',
-    );
+    print(' ${name ?? "Test"} \r\n'
+        'Result: ${passed ? "PASSED ✅" : "FAILED ❌"}\r\n'
+        '${!passed ? 'Expected: $expectedResult \r\n' : ''}'
+        'Computed: $computedResult\r\n'
+        'Time taken: ${timeTaken.inMicroseconds} μs \r\n');
 
-    return isPassed;
+    return result;
   }
 }
 
-extension TestingListExtention<T extends Testable> on List<T> {
-  List<bool> test() => List.generate(
-        this.length,
-        (i) {
-          if (this[i] is ConsoleTestOutput) {
-            this[i].name = this[i].name ?? 'Test case $i';
-          }
+extension TestingListExtention<T> on List<Testable<T>> {
+  List<TestResult<T>> test() => List.generate(
+        length,
+        (index) {
+          this[index].name = this[index].name ?? 'Test case $index';
 
-          return this[i].test();
+          return this[index].test();
         },
       );
 }
