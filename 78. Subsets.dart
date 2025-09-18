@@ -15,6 +15,7 @@
 //     1 <= nums.length <= 10
 //     -10 <= nums[i] <= 10
 //     All the numbers of nums are unique.
+
 import 'testable.dart';
 
 class Solution {
@@ -42,12 +43,27 @@ class SolutionTest extends Testable<List<List<int>>> with ConsoleTestOutput {
   List<List<int>> computeResult() => Solution().subsets(nums);
 
   @override
-  bool test() {
-    final computedResult = computeResult();
+  bool validateResult(
+      List<List<int>> computedResult, List<List<int>> expectedResult) {
+    if (computedResult.length != expectedResult.length) return false;
 
-    if (computedResult.length != result.length) return false;
+    bool areListsEqual(List<int> a, List<int> b) {
+      if (a.length != b.length) return false;
+      for (var i = 0; i < a.length; i++) {
+        if (a[i] != b[i]) return false;
+      }
+      return true;
+    }
+
+    bool containsList(List<List<int>> listOfLists, List<int> target) {
+      for (final list in listOfLists) {
+        if (areListsEqual(list, target)) return true;
+      }
+      return false;
+    }
+
     for (var combination in computedResult) {
-      if (!result.contains(combination)) return false;
+      if (!containsList(expectedResult, combination)) return false;
     }
 
     return true;
