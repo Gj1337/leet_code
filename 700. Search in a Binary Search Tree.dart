@@ -50,7 +50,7 @@ class SolutionTest extends Testable<TreeNode?> with ConsoleTestOutput {
 
   @override
   bool validateResult(TreeNode? computedResult, TreeNode? expectedResult) =>
-      TreeNode.compareByValues(computedResult, expectedResult);
+      computedResult.toString() == expectedResult.toString();
 }
 
 void main(List<String> args) {
