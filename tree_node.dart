@@ -34,6 +34,19 @@ class TreeNode {
     return root;
   }
 
+  static bool isEqual(TreeNode? t1, TreeNode? t2) {
+    // 1. If both are null, they are equal
+    if (t1 == null && t2 == null) return true;
+
+    // 2. If one is null and the other isn't, they aren't equal
+    if (t1 == null || t2 == null) return false;
+
+    // 3. Check current value and recurse for children
+    return t1.val == t2.val &&
+        isEqual(t1.left, t2.left) &&
+        isEqual(t1.right, t2.right);
+  }
+
   String prettyString([String prefix = "", bool isLeft = true]) {
     final buffer = StringBuffer();
 
